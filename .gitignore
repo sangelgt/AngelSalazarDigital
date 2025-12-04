@@ -103,3 +103,7 @@ dist
 .tern-port
 
 hubspot.config.yml
+
+# HubSpot CLI config
+# Contains personal access keys and portal info. Do not commit.
+hubspot.config.yml
