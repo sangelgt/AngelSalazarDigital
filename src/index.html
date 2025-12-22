@@ -2,6 +2,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angel Salazar Digital | Sistemas de Rentabilidad en IA</title>
+    <meta name="description" content="Resuelva la crisis del ROI en IA. El 95% de los pilotos fracasan. Construimos sistemas de rentabilidad medibles con el método 'Orden antes que Herramienta'. Diagnóstico gratuito.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.angelsalazardigital.com/">
+    <meta property="og:title" content="Angel Salazar Digital | Sistemas de Rentabilidad en IA">
+    <meta property="og:description" content="Resuelva la crisis del ROI en IA. El 95% de los pilotos fracasan. Construimos sistemas de rentabilidad medibles con el método 'Orden antes que Herramienta'. Diagnóstico gratuito.">
+    <meta property="og:image" content="https://www.angelsalazardigital.com/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.angelsalazardigital.com/">
+    <meta property="twitter:title" content="Angel Salazar Digital | Sistemas de Rentabilidad en IA">
+    <meta property="twitter:description" content="Resuelva la crisis del ROI en IA. El 95% de los pilotos fracasan. Construimos sistemas de rentabilidad medibles con el método 'Orden antes que Herramienta'. Diagnóstico gratuito.">
+    <meta property="twitter:image" content="https://www.angelsalazardigital.com/twitter-image.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Angel Salazar Digital",
+      "url": "https://www.angelsalazardigital.com/",
+      "logo": "https://www.angelsalazardigital.com/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "contacto@angelsalazardigital.com",
+        "contactType": "Customer Support"
+      }
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,127 +81,10 @@
       }
       }
     </script>
-    <style>
-      body {
-      background-color: #050505;
-      color: #e5e5e5;
-      cursor: none; /* Hide default cursor */
-      }
-      /* Custom Cursor */
-      .cursor-dot,
-      .cursor-ring {
-      position: fixed;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      z-index: 9999;
-      pointer-events: none;
-      }
-      .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background-color: #a855f7;
-      box-shadow: 0 0 15px 2px rgba(168, 85, 247, 0.8);
-      transition: width 0.1s, height 0.1s;
-      }
-      .cursor-ring {
-      width: 32px;
-      height: 32px;
-      border: 1.5px solid rgba(168, 85, 247, 0.4);
-      background-color: rgba(168, 85, 247, 0.05);
-      transition: background-color 0.1s, border-color 0.1s, width 0.2s, height 0.2s;
-      will-change: transform, top, left;
-      }
-      body.grabbing .cursor-ring {
-      width: 12px;
-      height: 12px;
-      background-color: #a855f7;
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
-      border-color: transparent;
-      }
-      body.hovering .cursor-ring {
-      width: 50px;
-      height: 50px;
-      border-color: #a855f7;
-      background-color: rgba(168, 85, 247, 0.15);
-      box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
-      }
-      /* Tech Background Grid */
-      .bg-grid-pattern {
-      background-size: 40px 40px;
-      background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-      }
-      /* Glass Card */
-      .glass-card {
-      background: linear-gradient(145deg, rgba(30, 30, 35, 0.4) 0%, rgba(20, 20, 25, 0.3) 100%);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      .glass-card:hover {
-      background: linear-gradient(145deg, rgba(40, 40, 45, 0.6) 0%, rgba(30, 30, 35, 0.5) 100%);
-      border-color: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
-      }
-      /* Border Shine */
-      .border-shine {
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      padding: 1px;
-      background: linear-gradient(45deg, transparent 40%, rgba(168, 85, 247, 0.4) 50%, transparent 60%);
-      background-size: 200% 200%;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.5s;
-      }
-      .group:hover .border-shine {
-      opacity: 1;
-      animation: shine-move 1.5s linear infinite;
-      }
-      /* Scroll Reveal */
-      .reveal-text {
-      opacity: 0;
-      transform: translateY(20px);
-      filter: blur(10px);
-      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform, filter;
-      }
-      .reveal-text.revealed {
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
-      }
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar { width: 6px; }
-      ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-      ::selection { background: rgba(168, 85, 247, 0.3); color: #fff; }
-      input:focus, textarea:focus {
-      box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5);
-      }
-      summary::-webkit-details-marker { display: none; }
-    </style>
+    <link rel="stylesheet" href="style.css">
     <meta name="disabled-font-classes" content="font-geist,font-roboto,font-poppins,font-playfair,font-instrument-serif,font-merriweather,font-bricolage,font-jakarta,font-space-grotesk,font-work-sans,font-pt-serif,font-geist-mono,font-space-mono,font-quicksand,font-nunito">
     <link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap">
-    <style id="all-fonts-style-font-montserrat">
-      .font-montserrat { font-family: 'Montserrat', sans-serif !important; }
-    </style>
     <link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap">
-    <style id="all-fonts-style-font-manrope">
-      .font-manrope { font-family: 'Manrope', sans-serif !important; }
-    </style>
   </head>
   <body class="antialiased font-sans min-h-screen relative overflow-x-hidden selection:bg-purple-500/30 selection:text-white">
     <!-- Custom Cursor Elements -->
@@ -232,7 +147,7 @@
         </div>
       </div>
     </nav>
-
+    <main>
     <!-- Hero Section -->
     <section class="min-h-screen overflow-hidden pt-32 pb-20 relative">
       <div class="max-w-[1400px] mx-auto px-6 relative z-10">
@@ -809,13 +724,13 @@
                   <label class="text-[10px] font-medium text-zinc-500 uppercase font-manrope tracking-wider" for="nombre">
                     Nombre Completo
                   </label>
-                  <input type="text" id="nombre" placeholder="Nombre Apellido" class="w-full bg-[#0a0a0a]/50 border border-white/10 rounded-md px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-purple-500/50 transition-all font-manrope">
+                  <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Nombre Apellido" class="w-full bg-[#0a0a0a]/50 border border-white/10 rounded-md px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-purple-500/50 transition-all font-manrope">
                 </div>
                 <div class="space-y-2">
                   <label class="text-[10px] font-medium text-zinc-500 uppercase font-manrope tracking-wider" for="email">
                     Correo Empresarial
                   </label>
-                  <input type="email" id="email" placeholder="nombre@empresa.com" class="w-full bg-[#0a0a0a]/50 border border-white/10 rounded-md px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-purple-500/50 transition-all font-manrope">
+                  <input type="email" id="email" name="email" autocomplete="email" placeholder="nombre@empresa.com" class="w-full bg-[#0a0a0a]/50 border border-white/10 rounded-md px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-purple-500/50 transition-all font-manrope">
                 </div>
               </div>
 
@@ -876,7 +791,7 @@
         </div>
       </div>
     </section>
-
+    </main>
     <!-- Footer -->
     <footer class="border-t border-white/5 pt-20 pb-12 bg-black relative z-10">
       <div class="max-w-[1400px] mx-auto px-6">
@@ -899,9 +814,9 @@
 
           <!-- Links -->
           <div class="space-y-4">
-            <h4 class="text-white text-xs font-medium uppercase tracking-wider font-manrope">
+            <h2 class="text-white text-xs font-medium uppercase tracking-wider font-manrope">
               Navegación
-            </h4>
+            </h2>
             <ul class="space-y-3 text-[10px] text-zinc-400 font-light">
               <li>
                 <a href="#" class="hover:text-white transition-colors interactable font-manrope">
@@ -927,9 +842,9 @@
           </div>
 
           <div class="space-y-4">
-            <h4 class="text-white text-xs font-medium uppercase tracking-wider font-manrope">
+            <h2 class="text-white text-xs font-medium uppercase tracking-wider font-manrope">
               Legal
-            </h4>
+            </h2>
             <ul class="space-y-3 text-[10px] text-zinc-400 font-light">
               <li>
                 <a href="#" class="hover:text-white transition-colors interactable font-manrope">
@@ -950,9 +865,9 @@
           </div>
 
           <div class="space-y-4">
-            <h4 class="text-white text-xs font-medium uppercase tracking-wider font-manrope">
+            <h2 class="text-white text-xs font-medium uppercase tracking-wider font-manrope">
               Contacto
-            </h4>
+            </h2>
             <ul class="space-y-4 text-[10px] text-zinc-400 font-light">
               <li class="flex gap-3 items-center interactable">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail">
@@ -976,92 +891,6 @@
       </div>
     </footer>
 
-    <script>
-      lucide.createIcons();
-
-      // --- Scroll Reveal Animation ---
-      const observerOptions = {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.1
-      };
-
-      const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                  entry.target.classList.add('revealed');
-
-                  // Trigger counters if present
-                  const counters = entry.target.querySelectorAll('.counter');
-                  if(counters.length > 0) {
-                      counters.forEach(counter => startCounter(counter));
-                  }
-
-                  observer.unobserve(entry.target);
-              }
-          });
-      }, observerOptions);
-
-      document.querySelectorAll('.reveal-text').forEach(el => {
-          observer.observe(el);
-      });
-
-      // --- Counter Animation ---
-      function startCounter(counter) {
-          const target = +counter.getAttribute('data-target');
-          const duration = 2000;
-          const start = 0;
-          const startTime = performance.now();
-
-          function update(currentTime) {
-              const elapsed = currentTime - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              const ease = 1 - Math.pow(1 - progress, 4); // easeOutQuart
-
-              const currentVal = Math.floor(ease * (target - start) + start);
-              counter.innerText = currentVal;
-
-              if (progress < 1) {
-                  requestAnimationFrame(update);
-              } else {
-                  counter.innerText = target;
-              }
-          }
-          requestAnimationFrame(update);
-      }
-
-      // --- Custom Cursor Logic ---
-      const cursorDot = document.getElementById('cursor-dot');
-      const cursorRing = document.getElementById('cursor-ring');
-      const body = document.body;
-
-      document.addEventListener('mousemove', (e) => {
-          const mouseX = e.clientX;
-          const mouseY = e.clientY;
-
-          cursorDot.style.left = `${mouseX}px`;
-          cursorDot.style.top = `${mouseY}px`;
-
-          cursorRing.style.left = `${mouseX}px`;
-          cursorRing.style.top = `${mouseY}px`;
-
-          const target = e.target;
-          if (target.closest('.interactable') || target.closest('a') || target.closest('button')) {
-              body.classList.add('hovering');
-          } else {
-              body.classList.remove('hovering');
-          }
-      });
-
-      document.addEventListener('mousedown', () => {
-          body.classList.add('grabbing');
-          cursorRing.style.transform = 'translate(-50%, -50%) scale(0.5)';
-      });
-
-      document.addEventListener('mouseup', () => {
-          body.classList.remove('grabbing');
-          cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
-      });
-    </script>
+    <script src="script.js"></script>
 
 </body></html>
