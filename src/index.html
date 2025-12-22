@@ -1,0 +1,1067 @@
+<html lang="en" class="scroll-smooth cursor-none"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angel Salazar Digital | Sistemas de Rentabilidad en IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+      darkMode: 'class',
+      theme: {
+      extend: {
+      fontFamily: {
+      sans: ['Inter', 'sans-serif'],
+      },
+      colors: {
+      zinc: {
+      850: '#1f1f22',
+      900: '#18181b',
+      950: '#0a0a0a',
+      },
+      purple: {
+      450: '#8b5cf6',
+      }
+      },
+      fontSize: {
+      '10xl': '10rem',
+      },
+      animation: {
+      'blob': 'blob 7s infinite',
+      'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      'shine-move': 'shine-move 1.5s linear infinite',
+      },
+      keyframes: {
+      blob: {
+      '0%': { transform: 'translate(0px, 0px) scale(1)' },
+      '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+      '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+      '100%': { transform: 'translate(0px, 0px) scale(1)' },
+      },
+      'shine-move': {
+      '0%': { backgroundPosition: '100% 100%' },
+      '100%': { backgroundPosition: '0% 0%' }
+      }
+      }
+      }
+      }
+      }
+    </script>
+    <style>
+      body {
+      background-color: #050505;
+      color: #e5e5e5;
+      cursor: none; /* Hide default cursor */
+      }
+      /* Custom Cursor */
+      .cursor-dot,
+      .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      z-index: 9999;
+      pointer-events: none;
+      }
+      .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #a855f7;
+      box-shadow: 0 0 15px 2px rgba(168, 85, 247, 0.8);
+      transition: width 0.1s, height 0.1s;
+      }
+      .cursor-ring {
+      width: 32px;
+      height: 32px;
+      border: 1.5px solid rgba(168, 85, 247, 0.4);
+      background-color: rgba(168, 85, 247, 0.05);
+      transition: background-color 0.1s, border-color 0.1s, width 0.2s, height 0.2s;
+      will-change: transform, top, left;
+      }
+      body.grabbing .cursor-ring {
+      width: 12px;
+      height: 12px;
+      background-color: #a855f7;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+      border-color: transparent;
+      }
+      body.hovering .cursor-ring {
+      width: 50px;
+      height: 50px;
+      border-color: #a855f7;
+      background-color: rgba(168, 85, 247, 0.15);
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+      }
+      /* Tech Background Grid */
+      .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+      }
+      /* Glass Card */
+      .glass-card {
+      background: linear-gradient(145deg, rgba(30, 30, 35, 0.4) 0%, rgba(20, 20, 25, 0.3) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .glass-card:hover {
+      background: linear-gradient(145deg, rgba(40, 40, 45, 0.6) 0%, rgba(30, 30, 35, 0.5) 100%);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+      }
+      /* Border Shine */
+      .border-shine {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      padding: 1px;
+      background: linear-gradient(45deg, transparent 40%, rgba(168, 85, 247, 0.4) 50%, transparent 60%);
+      background-size: 200% 200%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.5s;
+      }
+      .group:hover .border-shine {
+      opacity: 1;
+      animation: shine-move 1.5s linear infinite;
+      }
+      /* Scroll Reveal */
+      .reveal-text {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(10px);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+      }
+      .reveal-text.revealed {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+      ::selection { background: rgba(168, 85, 247, 0.3); color: #fff; }
+      input:focus, textarea:focus {
+      box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5);
+      }
+      summary::-webkit-details-marker { display: none; }
+    </style>
+    <meta name="disabled-font-classes" content="font-geist,font-roboto,font-poppins,font-playfair,font-instrument-serif,font-merriweather,font-bricolage,font-jakarta,font-space-grotesk,font-work-sans,font-pt-serif,font-geist-mono,font-space-mono,font-quicksand,font-nunito">
+    <link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap">
+    <style id="all-fonts-style-font-montserrat">
+      .font-montserrat { font-family: 'Montserrat', sans-serif !important; }
+    </style>
+    <link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap">
+    <style id="all-fonts-style-font-manrope">
+      .font-manrope { font-family: 'Manrope', sans-serif !important; }
+    </style>
+  </head>
+  <body class="antialiased font-sans min-h-screen relative overflow-x-hidden selection:bg-purple-500/30 selection:text-white">
+    <!-- Custom Cursor Elements -->
+    <div id="cursor-dot" class="cursor-dot" style="left: 1243px; top: 246px;"></div>
+    <div id="cursor-ring" class="cursor-ring" style="left: 1243px; top: 246px; transform: translate(-50%, -50%) scale(1);"></div>
+
+    <!-- Tech Background -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+      <div class="absolute inset-0 bg-grid-pattern"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black"></div>
+      <!-- Floating Orbs -->
+      <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-900/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob opacity-40"></div>
+      <div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-blue-900/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000 opacity-40"></div>
+      <div class="absolute bottom-[-20%] left-[20%] w-[600px] h-[600px] bg-pink-900/10 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-4000 opacity-40"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-[#050505]/70 backdrop-blur-md border-b border-white/5">
+      <div class="max-w-[1400px] mx-auto px-6 h-20 flex justify-between items-center">
+        <div class="flex items-center gap-3 interactable">
+          <div class="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center bg-white/5 group hover:bg-white/10 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user" class="lucide lucide-user w-4 h-4 text-white group-hover:text-purple-400 transition-colors">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-white tracking-wide font-manrope">
+            Angel Salazar Digital
+          </span>
+        </div>
+
+        <div class="hidden md:flex items-center gap-8 text-xs font-medium text-zinc-500 uppercase tracking-widest">
+          <a href="#" class="text-white interactable font-manrope">Home</a>
+          <a href="#methodology" class="hover:text-white transition-colors interactable font-manrope">
+            Methodology
+          </a>
+          <a href="#cases" class="hover:text-white transition-colors interactable font-manrope">
+            Case Studies
+          </a>
+          <a href="#resources" class="hover:text-white transition-colors interactable font-manrope">
+            Resources
+          </a>
+          <a href="#diagnosis" class="hover:text-white transition-colors interactable font-manrope">
+            Diagnosis
+          </a>
+        </div>
+
+        <div class="flex items-center gap-5 text-zinc-400">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="twitter" class="lucide lucide-twitter w-4 h-4 hover:text-white transition-colors cursor-pointer interactable">
+            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="facebook" class="lucide lucide-facebook w-4 h-4 hover:text-white transition-colors cursor-pointer interactable">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="instagram" class="lucide lucide-instagram w-4 h-4 hover:text-white transition-colors cursor-pointer interactable">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+          </svg>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen overflow-hidden pt-32 pb-20 relative">
+      <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+        <div class="flex flex-col items-center justify-center text-center pt-10 relative z-10">
+          <h1 class="text-4xl lg:text-7xl font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-gray-400 mb-8 font-montserrat max-w-5xl leading-tight">
+            Deje de comprar herramientas de IA.
+            <br>
+            Comience a construir
+            <span class="text-purple-400 font-semibold">
+              sistemas de rentabilidad
+            </span>
+            .
+          </h1>
+          <p class="text-zinc-400 text-sm lg:text-lg max-w-3xl mb-10 font-manrope font-light leading-relaxed">
+            El 95% de los pilotos de Inteligencia Artificial fracasan en generar
+            resultados financieros. En Angel Salazar Digital, no implementamos
+            tecnología aislada; orquestamos procesos de negocio bajo el método
+            "Orden antes que Herramienta".
+          </p>
+          <div class="flex flex-col md:flex-row gap-6 mb-24">
+            <a href="#diagnosis" class="px-8 py-4 bg-purple-600/20 border border-purple-500/50 text-purple-100 rounded-lg hover:bg-purple-600/30 transition-all hover:scale-105 backdrop-blur-sm font-manrope font-medium text-sm tracking-wide interactable">
+              Calcula tu Potencial de ROI
+            </a>
+            <p class="text-zinc-500 text-xs self-center font-manrope">
+              Estimación en &lt; 2 minutos
+            </p>
+          </div>
+
+          <!-- PAS Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-7xl text-left mb-12">
+            <div class="glass-card p-8 rounded-2xl border-l-4 border-l-red-500/50 group hover:-translate-y-1 transition-transform">
+              <div class="border-shine"></div>
+              <div class="relative z-10">
+                <h3 class="text-white font-montserrat text-lg mb-4 flex items-center gap-2">
+                  <span class="text-red-400">01.</span>
+                  Problema
+                </h3>
+                <p class="text-zinc-400 text-xs leading-relaxed font-manrope">
+                  ¿Su inversión en IA se siente como un pozo sin fondo? Empresas
+                  atrapadas adquiriendo licencias sin objetivo claro, creando
+                  "islas de eficiencia" que no mueven métricas financieras.
+                </p>
+              </div>
+            </div>
+            <div class="glass-card p-8 rounded-2xl border-l-4 border-l-orange-500/50 group hover:-translate-y-1 transition-transform">
+              <div class="border-shine"></div>
+              <div class="relative z-10">
+                <h3 class="text-white font-montserrat text-lg mb-4 flex items-center gap-2">
+                  <span class="text-orange-400">02.</span>
+                  Agitación
+                </h3>
+                <p class="text-zinc-400 text-xs leading-relaxed font-manrope">
+                  Confundir "actividad" con "resultados" es costoso. Sin
+                  gobernanza clara, es como instalar un motor de F1 en una
+                  bicicleta: solo garantiza que se rompa más rápido.
+                </p>
+              </div>
+            </div>
+            <div class="glass-card p-8 rounded-2xl border-l-4 border-l-green-500/50 group hover:-translate-y-1 transition-transform">
+              <div class="border-shine"></div>
+              <div class="relative z-10">
+                <h3 class="text-white font-montserrat text-lg mb-4 flex items-center gap-2">
+                  <span class="text-green-400">03.</span>
+                  Solución
+                </h3>
+                <p class="text-zinc-400 text-xs leading-relaxed font-manrope">
+                  Un sistema operativo que prioriza orquestación sobre
+                  automatización. Tecnología al servicio del resultado global,
+                  con cada segundo ahorrado reflejado en ROI.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metrics -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-7xl">
+            <div class="glass-card p-6 rounded-xl text-center">
+              <div class="text-3xl text-white font-montserrat font-light mb-1">
+                30%
+              </div>
+              <div class="text-[10px] text-zinc-500 font-manrope uppercase tracking-wider">
+                Reducción Tiempos
+              </div>
+            </div>
+            <div class="glass-card p-6 rounded-xl text-center">
+              <div class="text-3xl text-white font-montserrat font-light mb-1">
+                2h
+              </div>
+              <div class="text-[10px] text-zinc-500 font-manrope uppercase tracking-wider">
+                Ahorro Diario/Persona
+              </div>
+            </div>
+            <div class="glass-card p-6 rounded-xl text-center">
+              <div class="text-3xl text-white font-montserrat font-light mb-1">
+                35%
+              </div>
+              <div class="text-[10px] text-zinc-500 font-manrope uppercase tracking-wider">
+                Aumento Conversión
+              </div>
+            </div>
+            <div class="glass-card p-6 rounded-xl text-center">
+              <div class="text-3xl text-white font-montserrat font-light mb-1">
+                ROI
+              </div>
+              <div class="text-[10px] text-zinc-500 font-manrope uppercase tracking-wider">
+                Decisiones con Datos
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bold Creations Section -->
+    <section class="pt-24 pb-24 relative" id="methodology">
+      <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+        <div class="mb-20 reveal-text revealed">
+          <h2 class="text-4xl lg:text-5xl font-medium tracking-tight text-white max-w-2xl leading-tight font-montserrat">
+            <span class="font-light text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
+              Un sistema de rentabilidad diseñado para escalar
+            </span>
+          </h2>
+          <p class="text-xs text-zinc-500 max-w-lg mt-6 font-light leading-relaxed font-manrope">
+            No vendemos software. Implementamos una arquitectura operativa de
+            tres pilares que asegura que su inversión tecnológica genere retorno
+            financiero medible.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Pillar 1 -->
+          <div class="glass-card p-8 rounded-2xl group interactable relative overflow-hidden reveal-text">
+            <div class="border-shine"></div>
+            <div class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center mb-6 text-purple-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-merge">
+                <circle cx="18" cy="18" r="3"></circle>
+                <circle cx="6" cy="6" r="3"></circle>
+                <path d="M6 21V9a9 9 0 0 0 9 9"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg text-white font-montserrat mb-4">
+              1. Orquestación de Procesos
+            </h3>
+            <p class="text-xs text-zinc-400 font-light leading-relaxed font-manrope relative z-10">
+              No automatizamos el desorden. Analizamos su cadena de valor para
+              asegurar que la IA actúe sobre tareas repetitivas y medibles,
+              conectándola con su CRM y ERP para evitar pérdida de trazabilidad.
+            </p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="glass-card p-8 rounded-2xl group interactable relative overflow-hidden reveal-text" style="transition-delay: 100ms">
+            <div class="border-shine"></div>
+            <div class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center mb-6 text-purple-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg text-white font-montserrat mb-4">
+              2. Gobernanza (AI Owner)
+            </h3>
+            <p class="text-xs text-zinc-400 font-light leading-relaxed font-manrope relative z-10">
+              La tecnología sin dueño fracasa. La presencia de un responsable de
+              negocio enfocado en métricas de ahorro multiplica por 2.5 la
+              probabilidad de éxito financiero.
+            </p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="glass-card p-8 rounded-2xl group interactable relative overflow-hidden reveal-text" style="transition-delay: 200ms">
+            <div class="border-shine"></div>
+            <div class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center mb-6 text-purple-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brain-circuit">
+                <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path>
+                <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path>
+                <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path>
+                <path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path>
+                <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path>
+                <path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path>
+                <path d="M19.938 10.5a4 4 0 0 1 .585.396"></path>
+                <path d="M6 18a4 4 0 0 1-1.97-1.375"></path>
+                <path d="M17.97 16.625A4 4 0 0 1 16 18"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg text-white font-montserrat mb-4">
+              3. Conocimiento Organizacional
+            </h3>
+            <p class="text-xs text-zinc-400 font-light leading-relaxed font-manrope relative z-10">
+              Prevenimos la "Amnesia Organizacional". Sistematizamos lecciones
+              aprendidas de cada proyecto para que su empresa nunca pague dos
+              veces por el mismo error.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-12 text-center">
+          <a href="#cases" class="inline-flex items-center gap-2 text-sm text-white border border-white/20 px-6 py-3 rounded-lg hover:bg-white/5 transition-colors font-manrope interactable">
+            Explorar nuestro proceso en detalle
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down">
+              <path d="M12 5v14"></path>
+              <path d="m19 12-7 7-7-7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Design That Speaks Section -->
+    <section class="py-24 relative overflow-hidden" id="cases">
+      <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+        <div class="flex flex-col lg:flex-row justify-between items-start mb-16 reveal-text">
+          <h2 class="text-4xl lg:text-5xl font-light text-white max-w-2xl font-montserrat">
+            Transparencia Radical:
+            <span class="block text-zinc-500">Análisis Post-Mortem</span>
+          </h2>
+          <p class="text-zinc-400 text-xs max-w-sm mt-6 lg:mt-0 font-light leading-relaxed font-manrope text-right">
+            No vendemos fantasías. Estos son análisis reales donde la
+            orquestación superó a la herramienta. Revelamos los obstáculos, las
+            decisiones y el ROI tangible.
+          </p>
+        </div>
+
+        <div class="space-y-8">
+          <!-- Case 1: Nabolic -->
+          <div class="glass-card p-8 rounded-2xl reveal-text">
+            <div class="flex flex-col md:flex-row gap-8 mb-8 border-b border-white/5 pb-8">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] rounded uppercase font-bold tracking-wider">
+                    E-Commerce
+                  </span>
+                  <h3 class="text-2xl text-white font-montserrat">
+                    Nabolic Fitness
+                  </h3>
+                </div>
+                <p class="text-zinc-400 text-xs font-light font-manrope">
+                  Cliente con campañas aisladas sin integración CRM y e-commerce
+                  colapsando en picos.
+                </p>
+              </div>
+              <div class="grid grid-cols-2 gap-4 text-center">
+                <div class="p-3 bg-white/5 rounded-lg">
+                  <div class="text-xl text-green-400 font-bold font-manrope">
+                    +217%
+                  </div>
+                  <div class="text-[10px] text-zinc-500 uppercase">
+                    Tasa Conversión
+                  </div>
+                </div>
+                <div class="p-3 bg-white/5 rounded-lg">
+                  <div class="text-xl text-green-400 font-bold font-manrope">
+                    -96%
+                  </div>
+                  <div class="text-[10px] text-zinc-500 uppercase">
+                    Tiempo Caído
+                  </div>
+                </div>
+              </div>
+            </div>
+            <details class="group/detail">
+              <summary class="flex items-center gap-2 cursor-pointer text-sm text-purple-400 font-medium list-none font-manrope hover:text-purple-300 transition-colors">
+                <span>Ver Análisis de Errores Críticos y Soluciones</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-open/detail:rotate-180 transition-transform">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </summary>
+              <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-white/5">
+                <div class="space-y-2">
+                  <h4 class="text-red-400 text-xs font-bold uppercase">
+                    Error: Tráfico sin Conversión
+                  </h4>
+                  <p class="text-zinc-500 text-[10px] leading-relaxed">
+                    Campañas con clics pero 1.2% conversión.
+                    <br>
+                    <span class="text-white">Solución:</span>
+                    Segmentación por intención y landing pages específicas.
+                  </p>
+                </div>
+                <div class="space-y-2">
+                  <h4 class="text-red-400 text-xs font-bold uppercase">
+                    Error: Infraestructura Débil
+                  </h4>
+                  <p class="text-zinc-500 text-[10px] leading-relaxed">
+                    Colapso de 4h en Black Friday.
+                    <br>
+                    <span class="text-white">Solución:</span>
+                    Rediseño arquitectura con CDN y caché inteligente.
+                  </p>
+                </div>
+                <div class="space-y-2">
+                  <h4 class="text-orange-400 text-xs font-bold uppercase">
+                    Factor Decisivo
+                  </h4>
+                  <p class="text-zinc-500 text-[10px] leading-relaxed">
+                    Asignación de AI Owner redujo el CAC de $18 a $11 al alinear
+                    técnica con finanzas.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <!-- Case 2: La Explotada -->
+          <div class="glass-card p-8 rounded-2xl reveal-text">
+            <div class="flex flex-col md:flex-row gap-8 mb-8 border-b border-white/5 pb-8">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="px-2 py-1 bg-yellow-500/20 text-yellow-300 text-[10px] rounded uppercase font-bold tracking-wider">
+                    Restaurante
+                  </span>
+                  <h3 class="text-2xl text-white font-montserrat">
+                    La Explotada.ve
+                  </h3>
+                </div>
+                <p class="text-zinc-400 text-xs font-light font-manrope">
+                  Operación reactiva sin estándares, alto desperdicio y rotación
+                  de personal.
+                </p>
+              </div>
+              <div class="grid grid-cols-2 gap-4 text-center">
+                <div class="p-3 bg-white/5 rounded-lg">
+                  <div class="text-xl text-green-400 font-bold font-manrope">
+                    -68%
+                  </div>
+                  <div class="text-[10px] text-zinc-500 uppercase">
+                    Pérdida Insumos
+                  </div>
+                </div>
+                <div class="p-3 bg-white/5 rounded-lg">
+                  <div class="text-xl text-green-400 font-bold font-manrope">
+                    +34%
+                  </div>
+                  <div class="text-[10px] text-zinc-500 uppercase">
+                    Rentabilidad
+                  </div>
+                </div>
+              </div>
+            </div>
+            <details class="group/detail">
+              <summary class="flex items-center gap-2 cursor-pointer text-sm text-purple-400 font-medium list-none font-manrope hover:text-purple-300 transition-colors">
+                <span>Ver Análisis de Errores Críticos y Soluciones</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-open/detail:rotate-180 transition-transform">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </summary>
+              <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-white/5">
+                <div class="space-y-2">
+                  <h4 class="text-red-400 text-xs font-bold uppercase">
+                    Error: Operar de Memoria
+                  </h4>
+                  <p class="text-zinc-500 text-[10px] leading-relaxed">
+                    Sin manuales, cada empleado improvisaba.
+                    <br>
+                    <span class="text-white">Solución:</span>
+                    Manuales operativos visuales y checklist cronometrados.
+                  </p>
+                </div>
+                <div class="space-y-2">
+                  <h4 class="text-red-400 text-xs font-bold uppercase">
+                    Error: Compras Reactivas
+                  </h4>
+                  <p class="text-zinc-500 text-[10px] leading-relaxed">
+                    Pedidos por intuición = 22% desperdicio.
+                    <br>
+                    <span class="text-white">Solución:</span>
+                    Sistema de inventario con proyección de demanda.
+                  </p>
+                </div>
+                <div class="space-y-2">
+                  <h4 class="text-orange-400 text-xs font-bold uppercase">
+                    Factor Decisivo
+                  </h4>
+                  <p class="text-zinc-500 text-[10px] leading-relaxed">
+                    Procesos antes que Apps. No se compró software hasta
+                    documentar el proceso manual.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <!-- Case 3: Medusa -->
+          <div class="glass-card p-8 rounded-2xl reveal-text">
+            <div class="flex flex-col md:flex-row gap-8 mb-8 border-b border-white/5 pb-8">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="px-2 py-1 bg-blue-500/20 text-blue-300 text-[10px] rounded uppercase font-bold tracking-wider">
+                    Importación B2B
+                  </span>
+                  <h3 class="text-2xl text-white font-montserrat">
+                    Medusa Group
+                  </h3>
+                </div>
+                <p class="text-zinc-400 text-xs font-light font-manrope">
+                  Prospección manual de 25h/sem con proveedores sin certificar.
+                </p>
+              </div>
+              <div class="grid grid-cols-2 gap-4 text-center">
+                <div class="p-3 bg-white/5 rounded-lg">
+                  <div class="text-xl text-green-400 font-bold font-manrope">
+                    -60%
+                  </div>
+                  <div class="text-[10px] text-zinc-500 uppercase">
+                    Tiempo Búsqueda
+                  </div>
+                </div>
+                <div class="p-3 bg-white/5 rounded-lg">
+                  <div class="text-xl text-green-400 font-bold font-manrope">
+                    +567%
+                  </div>
+                  <div class="text-[10px] text-zinc-500 uppercase">
+                    Conversión B2B
+                  </div>
+                </div>
+              </div>
+            </div>
+            <details class="group/detail">
+              <summary class="flex items-center gap-2 cursor-pointer text-sm text-purple-400 font-medium list-none font-manrope hover:text-purple-300 transition-colors">
+                <span>Ver Análisis de Errores Críticos y Soluciones</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-open/detail:rotate-180 transition-transform">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </summary>
+              <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-white/5">
+                <div class="space-y-2">
+                  <h4 class="text-red-400 text-xs font-bold uppercase">
+                    Error: Navegación a Ciegas
+                  </h4>
+                  <p class="text-zinc-500 text-[10px] leading-relaxed">
+                    85% de proveedores contactados no cumplían normas.
+                    <br>
+                    <span class="text-white">Solución:</span>
+                    Scoring automatizado con ML (14 variables).
+                  </p>
+                </div>
+                <div class="space-y-2">
+                  <h4 class="text-red-400 text-xs font-bold uppercase">
+                    Error: Emails Genéricos
+                  </h4>
+                  <p class="text-zinc-500 text-[10px] leading-relaxed">
+                    3% respuesta. Percibido como spam.
+                    <br>
+                    <span class="text-white">Solución:</span>
+                    Personalización automatizada por industria.
+                  </p>
+                </div>
+                <div class="space-y-2">
+                  <h4 class="text-orange-400 text-xs font-bold uppercase">
+                    Factor Decisivo
+                  </h4>
+                  <p class="text-zinc-500 text-[10px] leading-relaxed">
+                    Gobernanza de Datos. El sistema redujo la curva de
+                    aprendizaje de nuevos operadores de 3 meses a 2 semanas.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 relative" id="resources">
+      <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+        <div class="flex flex-col md:flex-row justify-between items-start mb-16 reveal-text">
+          <h2 class="text-4xl lg:text-5xl font-light text-white max-w-lg font-montserrat">
+            Activos Estratégicos
+          </h2>
+          <p class="text-zinc-500 text-xs max-w-sm mt-4 md:mt-0 font-light text-right font-manrope">
+            Acceda a herramientas y guías técnicas diseñadas para evitar la
+            degradación del conocimiento. Todos los documentos optimizados WCAG
+            2.2 AA.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-text">
+          <!-- Resource 1 -->
+          <div class="glass-card p-6 rounded-2xl group interactable hover:-translate-y-2 transition-transform">
+            <div class="h-10 w-10 bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 text-purple-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" x2="8" y1="13" y2="13"></line>
+                <line x1="16" x2="8" y1="17" y2="17"></line>
+                <line x1="10" x2="8" y1="9" y2="9"></line>
+              </svg>
+            </div>
+            <h3 class="text-white font-medium mb-2 font-manrope">
+              Guía de Rentabilidad en IA
+            </h3>
+            <p class="text-[10px] text-zinc-500 mb-4">
+              Manual técnico PDF accesible.
+            </p>
+            <a href="#" class="text-xs text-purple-400 flex items-center gap-1 hover:gap-2 transition-all">
+              Descargar
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+          <!-- Resource 2 -->
+          <div class="glass-card p-6 rounded-2xl group interactable hover:-translate-y-2 transition-transform">
+            <div class="h-10 w-10 bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 text-purple-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-square">
+                <path d="m9 11 3 3L22 4"></path>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              </svg>
+            </div>
+            <h3 class="text-white font-medium mb-2 font-manrope">
+              Checklist de Gobernanza
+            </h3>
+            <p class="text-[10px] text-zinc-500 mb-4">
+              Evite islas de eficiencia con esta lista.
+            </p>
+            <a href="#" class="text-xs text-purple-400 flex items-center gap-1 hover:gap-2 transition-all">
+              Descargar
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+          <!-- Resource 3 -->
+          <div class="glass-card p-6 rounded-2xl group interactable hover:-translate-y-2 transition-transform">
+            <div class="h-10 w-10 bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 text-purple-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-template">
+                <rect width="18" height="7" x="3" y="3" rx="1"></rect>
+                <rect width="9" height="7" x="3" y="14" rx="1"></rect>
+                <rect width="5" height="7" x="16" y="14" rx="1"></rect>
+              </svg>
+            </div>
+            <h3 class="text-white font-medium mb-2 font-manrope">
+              Plantillas de AI Owner
+            </h3>
+            <p class="text-[10px] text-zinc-500 mb-4">
+              Formatos para reporte de ROI.
+            </p>
+            <a href="#" class="text-xs text-purple-400 flex items-center gap-1 hover:gap-2 transition-all">
+              Descargar
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subscription / Contact -->
+    <section class="py-24" id="diagnosis">
+      <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+        <div class="mb-12 reveal-text text-center">
+          <h2 class="text-4xl lg:text-5xl tracking-tight text-white mb-4 font-montserrat font-light">
+            ¿Cuánto está dejando de ganar hoy
+            <br>
+            por falta de un sistema?
+          </h2>
+          <p class="text-sm text-zinc-500 max-w-xl mx-auto font-light font-manrope">
+            Su primer entregable: Una Hoja de Ruta hacia la Rentabilidad.
+            Diagnóstico sin compromiso.
+          </p>
+        </div>
+
+        <div class="max-w-2xl mx-auto">
+          <div class="glass-card rounded-2xl p-10 reveal-text relative overflow-hidden">
+            <div class="border-shine"></div>
+            <form class="space-y-6 relative z-10">
+              <div class="grid grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="text-[10px] font-medium text-zinc-500 uppercase font-manrope tracking-wider" for="nombre">
+                    Nombre Completo
+                  </label>
+                  <input type="text" id="nombre" placeholder="Nombre Apellido" class="w-full bg-[#0a0a0a]/50 border border-white/10 rounded-md px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-purple-500/50 transition-all font-manrope">
+                </div>
+                <div class="space-y-2">
+                  <label class="text-[10px] font-medium text-zinc-500 uppercase font-manrope tracking-wider" for="email">
+                    Correo Empresarial
+                  </label>
+                  <input type="email" id="email" placeholder="nombre@empresa.com" class="w-full bg-[#0a0a0a]/50 border border-white/10 rounded-md px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-purple-500/50 transition-all font-manrope">
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-[10px] font-medium text-zinc-500 uppercase font-manrope tracking-wider" for="industria">
+                  Industria
+                </label>
+                <select id="industria" class="w-full bg-[#0a0a0a]/50 border border-white/10 rounded-md px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500/50 transition-all font-manrope appearance-none">
+                  <option>Seleccione su industria...</option>
+                  <option>E-Commerce / Retail</option>
+                  <option>Manufactura / Logística</option>
+                  <option>Servicios B2B</option>
+                  <option>Salud / Farma</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-[10px] font-medium text-zinc-500 uppercase font-manrope tracking-wider" for="frustracion">
+                  Principal Frustración con IA
+                </label>
+                <textarea id="frustracion" rows="3" placeholder="¿Qué obstáculo le impide ver ROI hoy?" class="w-full bg-[#0a0a0a]/50 border border-white/10 rounded-md px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-purple-500/50 transition-all font-manrope"></textarea>
+              </div>
+
+              <button type="button" class="mt-4 px-8 py-4 w-full bg-[#3D0066] text-white font-medium rounded hover:bg-[#5E35B1] transition-all shadow-[0_0_20px_rgba(61,0,102,0.4)] hover:scale-[1.01] interactable font-manrope text-sm tracking-wide">
+                Obtener mi Diagnóstico de ROI
+              </button>
+              <p class="text-[10px] text-center text-zinc-600 font-manrope">
+                Análisis personalizado. Sin spam.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 relative">
+      <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+        <div class="glass-card p-12 rounded-3xl relative overflow-hidden">
+          <div class="border-shine"></div>
+          <div class="relative z-10 text-center max-w-4xl mx-auto">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-quote text-purple-500/50 mx-auto mb-8">
+              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+              <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+            </svg>
+            <p class="text-xl md:text-2xl text-white font-light font-montserrat leading-relaxed mb-8 italic">
+              "Lo que diferencia estos casos no es la tecnología implementada,
+              sino la honestidad con la que diseccionamos cada error. Nuestros
+              clientes no pagan por fantasías; pagan por sistemas que funcionan
+              porque ya fracasaron antes en nuestras manos, no en las suyas."
+            </p>
+            <p class="text-sm font-bold text-white tracking-widest uppercase font-manrope">
+              Angel Salazar
+            </p>
+            <p class="text-xs text-zinc-500 font-manrope">Fundador</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 pt-20 pb-12 bg-black relative z-10">
+      <div class="max-w-[1400px] mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-20">
+          <!-- Brand -->
+          <div class="lg:col-span-2 space-y-6">
+            <div class="flex items-center gap-3 interactable">
+              <span class="text-lg font-medium text-white tracking-wide font-manrope">
+                Angel Salazar Digital
+              </span>
+            </div>
+            <p class="text-xs text-zinc-500 leading-relaxed max-w-xs font-light font-manrope">
+              Orquestación de procesos y rentabilidad en IA. Transformamos la
+              inversión tecnológica en resultados financieros medibles.
+            </p>
+            <p class="text-[10px] text-zinc-600 mt-8 font-manrope">
+              © 2024 Angel Salazar Digital. Todos los derechos reservados.
+            </p>
+          </div>
+
+          <!-- Links -->
+          <div class="space-y-4">
+            <h4 class="text-white text-xs font-medium uppercase tracking-wider font-manrope">
+              Navegación
+            </h4>
+            <ul class="space-y-3 text-[10px] text-zinc-400 font-light">
+              <li>
+                <a href="#" class="hover:text-white transition-colors interactable font-manrope">
+                  Inicio
+                </a>
+              </li>
+              <li>
+                <a href="#methodology" class="hover:text-white transition-colors interactable font-manrope">
+                  Metodología
+                </a>
+              </li>
+              <li>
+                <a href="#cases" class="hover:text-white transition-colors interactable font-manrope">
+                  Casos de Éxito
+                </a>
+              </li>
+              <li>
+                <a href="#resources" class="hover:text-white transition-colors interactable font-manrope">
+                  Recursos
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="text-white text-xs font-medium uppercase tracking-wider font-manrope">
+              Legal
+            </h4>
+            <ul class="space-y-3 text-[10px] text-zinc-400 font-light">
+              <li>
+                <a href="#" class="hover:text-white transition-colors interactable font-manrope">
+                  Política de Privacidad
+                </a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors interactable font-manrope">
+                  Términos y Condiciones
+                </a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors interactable font-manrope">
+                  Declaración de Accesibilidad
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="text-white text-xs font-medium uppercase tracking-wider font-manrope">
+              Contacto
+            </h4>
+            <ul class="space-y-4 text-[10px] text-zinc-400 font-light">
+              <li class="flex gap-3 items-center interactable">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail">
+                  <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                </svg>
+                <span class="font-manrope">
+                  contacto@angelsalazardigital.com
+                </span>
+              </li>
+              <li class="flex gap-3 items-center interactable">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span class="font-manrope">Lun-Vie: 9:00 - 18:00</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+
+      // --- Scroll Reveal Animation ---
+      const observerOptions = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add('revealed');
+
+                  // Trigger counters if present
+                  const counters = entry.target.querySelectorAll('.counter');
+                  if(counters.length > 0) {
+                      counters.forEach(counter => startCounter(counter));
+                  }
+
+                  observer.unobserve(entry.target);
+              }
+          });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal-text').forEach(el => {
+          observer.observe(el);
+      });
+
+      // --- Counter Animation ---
+      function startCounter(counter) {
+          const target = +counter.getAttribute('data-target');
+          const duration = 2000;
+          const start = 0;
+          const startTime = performance.now();
+
+          function update(currentTime) {
+              const elapsed = currentTime - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              const ease = 1 - Math.pow(1 - progress, 4); // easeOutQuart
+
+              const currentVal = Math.floor(ease * (target - start) + start);
+              counter.innerText = currentVal;
+
+              if (progress < 1) {
+                  requestAnimationFrame(update);
+              } else {
+                  counter.innerText = target;
+              }
+          }
+          requestAnimationFrame(update);
+      }
+
+      // --- Custom Cursor Logic ---
+      const cursorDot = document.getElementById('cursor-dot');
+      const cursorRing = document.getElementById('cursor-ring');
+      const body = document.body;
+
+      document.addEventListener('mousemove', (e) => {
+          const mouseX = e.clientX;
+          const mouseY = e.clientY;
+
+          cursorDot.style.left = `${mouseX}px`;
+          cursorDot.style.top = `${mouseY}px`;
+
+          cursorRing.style.left = `${mouseX}px`;
+          cursorRing.style.top = `${mouseY}px`;
+
+          const target = e.target;
+          if (target.closest('.interactable') || target.closest('a') || target.closest('button')) {
+              body.classList.add('hovering');
+          } else {
+              body.classList.remove('hovering');
+          }
+      });
+
+      document.addEventListener('mousedown', () => {
+          body.classList.add('grabbing');
+          cursorRing.style.transform = 'translate(-50%, -50%) scale(0.5)';
+      });
+
+      document.addEventListener('mouseup', () => {
+          body.classList.remove('grabbing');
+          cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    </script>
+
+</body></html>
